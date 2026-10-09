@@ -1,0 +1,43 @@
+.pmkProjectBlock {
+    border-bottom: 1px solid var(--sapList_BorderColor, #e0e0e0);
+}
+
+.pmkProjectHeader.sapMTB {
+    background-color: var(--sapList_GroupHeaderBackground, #f5f5f5);
+    border-bottom: 1px solid var(--sapList_BorderColor, #e0e0e0);
+    min-height: 2.75rem;
+    padding: 0 0.5rem;
+}
+
+.pmkProjectCode {
+    font-weight: bold;
+    font-size: 0.9375rem;
+    margin-right: 0.5rem;
+}
+
+.pmkProjectDescText {
+    color: var(--sapContent_LabelColor, #6a6d70);
+    font-size: 0.875rem;
+}
+
+.pmkDetailTable.sapMList {
+    margin-left: 2.75rem;
+}
+
+.pmkDetailTable .sapMListTbl {
+    background-color: transparent;
+}
+
+.pmkDetailTable .sapMListTblRow:last-child > td {
+    border-bottom: none;
+}
+
+/* Keep list items flush — no extra padding from CustomListItem */
+#projectList .sapMLIB {
+    padding: 0;
+}
+
+#projectList .sapMLIBContent {
+    padding: 0;
+    width: 100%;
+}

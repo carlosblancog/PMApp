@@ -1,0 +1,131 @@
+<mvc:View
+    controllerName="com.alk.pmregistration.controller.Main"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns="sap.m"
+    xmlns:core="sap.ui.core"
+    displayBlock="true">
+
+    <App>
+        <Page
+            id="mainPage"
+            title="PM Approvals – {localModel>/period}"
+            busy="{localModel>/busy}"
+            busyIndicatorDelay="0"
+            showNavButton="false">
+
+            <subHeader>
+                <Toolbar>
+                    <SearchField
+                        placeholder="{i18n>searchPlaceholder}"
+                        search="onSearch"
+                        width="100%" />
+                </Toolbar>
+            </subHeader>
+
+            <content>
+                <MessageStrip
+                    text="{i18n>accessDenied}"
+                    type="Error"
+                    showCloseButton="false"
+                    visible="{localModel>/accessDenied}"
+                    class="sapUiSmallMargin" />
+
+                <List
+                    id="projectList"
+                    visible="{localModel>/accessGranted}"
+                    noDataText="{i18n>noData}"
+                    showSeparators="None"
+                    items="{localModel>/projects}">
+                    <items>
+                        <CustomListItem type="Inactive">
+                            <content>
+                                <VBox class="pmkProjectBlock">
+
+                                    <!-- Project header row -->
+                                    <Toolbar class="pmkProjectHeader">
+                                        <CheckBox
+                                            selected="{localModel>isSelected}"
+                                            select="onProjectSelect" />
+                                        <Text text="{localModel>projectName}" class="pmkProjectCode" />
+                                        <Text text="{localModel>projectDesc}" class="pmkProjectDescText" />
+                                        <ToolbarSpacer />
+                                        <ObjectStatus
+                                            text="{localModel>totalHours} h"
+                                            state="None" />
+                                        <ObjectStatus
+                                            icon="sap-icon://alert"
+                                            text="{localModel>notReleasedCount} sin liberar"
+                                            state="Warning"
+                                            visible="{= ${localModel>notReleasedCount} > 0}" />
+                                        <ObjectStatus
+                                            icon="sap-icon://accept"
+                                            text="Todos liberados"
+                                            state="Success"
+                                            visible="{= ${localModel>notReleasedCount} === 0}" />
+                                        <ObjectStatus
+                                            icon="{= ${localModel>isFullyApproved} ? 'sap-icon://accept' : 'sap-icon://pending' }"
+                                            text="{= ${localModel>isFullyApproved} ? 'Aprobado' : 'Pendiente' }"
+                                            state="{= ${localModel>isFullyApproved} ? 'Success' : 'None' }"
+                                            class="sapUiSmallMarginBegin" />
+                                    </Toolbar>
+
+                                    <!-- Detail rows -->
+                                    <Table
+                                        items="{localModel>rows}"
+                                        mode="None"
+                                        showSeparators="Inner"
+                                        backgroundDesign="Transparent"
+                                        class="pmkDetailTable">
+                                        <columns>
+                                            <Column width="25%"><Text text="{i18n>colEmployee}" /></Column>
+                                            <Column width="25%"><Text text="{i18n>colSubtask}" /></Column>
+                                            <Column width="12%" hAlign="Center"><Text text="{i18n>colOpexCapex}" /></Column>
+                                            <Column width="10%" hAlign="End"><Text text="{i18n>colHours}" /></Column>
+                                            <Column width="14%" hAlign="Center"><Text text="{i18n>colReleased}" /></Column>
+                                            <Column width="14%" hAlign="Center"><Text text="{i18n>colApproved}" /></Column>
+                                        </columns>
+                                        <items>
+                                            <ColumnListItem type="Inactive">
+                                                <cells>
+                                                    <Text text="{localModel>employeeName}" />
+                                                    <Text text="{localModel>displayName}" />
+                                                    <Text text="{localModel>opexCapex}" />
+                                                    <ObjectNumber
+                                                        number="{localModel>totalHours}"
+                                                        unit="h"
+                                                        state="None" />
+                                                    <ObjectStatus
+                                                        icon="{= ${localModel>isReleased} ? 'sap-icon://accept' : 'sap-icon://decline' }"
+                                                        text="{= ${localModel>isReleased} ? 'Sí' : 'No' }"
+                                                        state="{= ${localModel>isReleased} ? 'Success' : 'Error' }" />
+                                                    <ObjectStatus
+                                                        icon="{= ${localModel>isApproved} ? 'sap-icon://accept' : 'sap-icon://pending' }"
+                                                        text="{= ${localModel>isApproved} ? 'Sí' : 'No' }"
+                                                        state="{= ${localModel>isApproved} ? 'Success' : 'None' }" />
+                                                </cells>
+                                            </ColumnListItem>
+                                        </items>
+                                    </Table>
+
+                                </VBox>
+                            </content>
+                        </CustomListItem>
+                    </items>
+                </List>
+            </content>
+
+            <footer>
+                <Toolbar visible="{localModel>/accessGranted}">
+                    <ToolbarSpacer />
+                    <Button
+                        text="Aprobar seleccionados ({localModel>/selectedCount})"
+                        type="Emphasized"
+                        enabled="{= ${localModel>/selectedCount} > 0}"
+                        press="onApprove" />
+                </Toolbar>
+            </footer>
+
+        </Page>
+    </App>
+
+</mvc:View>

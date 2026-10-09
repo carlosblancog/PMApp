@@ -1,0 +1,26 @@
+specVersion: '3.0'
+metadata:
+  name: com.alk.pmregistration
+type: application
+framework:
+  name: SAPUI5
+  version: "1.120.12"
+  libraries:
+    - name: sap.m
+    - name: sap.ui.core
+    - name: sap.ui.layout
+    - name: themelib_sap_horizon
+server:
+  customMiddleware:
+    - name: fiori-tools-proxy
+      afterMiddleware: compression
+      configuration:
+        ignoreCertError: true
+        backend:
+          - path: /sap
+            destination: DES_BW_ALK
+            scp: true
+builder:
+  resources:
+    excludes:
+      - /test/**
