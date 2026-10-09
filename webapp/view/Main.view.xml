@@ -46,27 +46,34 @@
                                         <CheckBox
                                             selected="{localModel>isSelected}"
                                             select="onProjectSelect" />
+                                        <core:Icon
+                                            src="sap-icon://project-definition-triangle"
+                                            size="1.25rem"
+                                            color="{= ${localModel>notReleasedCount} > 0 ? 'Negative' : (${localModel>isFullyApproved} ? 'Positive' : 'Critical') }"
+                                            class="sapUiSmallMarginEnd" />
                                         <Text text="{localModel>projectName}" class="pmkProjectCode" />
                                         <Text text="{localModel>projectDesc}" class="pmkProjectDescText" />
                                         <ToolbarSpacer />
-                                        <ObjectStatus
-                                            text="{localModel>totalHours} h"
-                                            state="None" />
+                                        <Text text="{localModel>totalHours} h" class="pmkTotalHoursHeader" />
+                                        <ToolbarSeparator />
                                         <ObjectStatus
                                             icon="sap-icon://alert"
                                             text="{localModel>notReleasedCount} sin liberar"
                                             state="Warning"
+                                            class="pmkStatusLarge"
                                             visible="{= ${localModel>notReleasedCount} > 0}" />
                                         <ObjectStatus
                                             icon="sap-icon://accept"
                                             text="Todos liberados"
                                             state="Success"
+                                            class="pmkStatusLarge"
                                             visible="{= ${localModel>notReleasedCount} === 0}" />
+                                        <ToolbarSeparator />
                                         <ObjectStatus
                                             icon="{= ${localModel>isFullyApproved} ? 'sap-icon://accept' : 'sap-icon://pending' }"
                                             text="{= ${localModel>isFullyApproved} ? 'Aprobado' : 'Pendiente' }"
                                             state="{= ${localModel>isFullyApproved} ? 'Success' : 'None' }"
-                                            class="sapUiSmallMarginBegin" />
+                                            class="pmkStatusLarge sapUiSmallMarginBegin" />
                                     </Toolbar>
 
                                     <!-- Detail rows -->
@@ -87,7 +94,14 @@
                                         <items>
                                             <ColumnListItem type="Inactive">
                                                 <cells>
-                                                    <Text text="{localModel>employeeName}" />
+                                                    <HBox alignItems="Center">
+                                                        <core:Icon
+                                                            src="sap-icon://employee"
+                                                            size="1rem"
+                                                            color="{= ${localModel>isReleased} ? 'Positive' : 'Negative' }"
+                                                            class="sapUiTinyMarginEnd" />
+                                                        <Text text="{localModel>employeeName}" />
+                                                    </HBox>
                                                     <Text text="{localModel>displayName}" />
                                                     <Text text="{localModel>opexCapex}" />
                                                     <ObjectNumber
