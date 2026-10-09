@@ -29,7 +29,9 @@ sap.ui.define([
             this._oModel.callFunction("/CheckPM", {
                 method: "GET",
                 success: function (oData) {
-                    if (oData.HasAccess) {
+                    var bAccess = oData.HasAccess === true ||
+                                  !!(oData.CheckPM && oData.CheckPM.HasAccess);
+                    if (bAccess) {
                         this._loadParams();
                     } else {
                         var oLM = this.getView().getModel("localModel");
