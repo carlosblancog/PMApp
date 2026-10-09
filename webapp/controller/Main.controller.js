@@ -19,13 +19,14 @@ sap.ui.define([
             });
             this.getView().setModel(oLocalModel, "localModel");
             this._sSearchTerm = "";
+            this._oModel = this.getOwnerComponent().getModel();
             this._checkPMAccess();
         },
 
         // ── Access ────────────────────────────────────────────────────────────
 
         _checkPMAccess: function () {
-            this.getView().getModel().callFunction("/CheckPM", {
+            this._oModel.callFunction("/CheckPM", {
                 method: "GET",
                 success: function (oData) {
                     if (oData.HasAccess) {
@@ -47,7 +48,7 @@ sap.ui.define([
         // ── Data loading ──────────────────────────────────────────────────────
 
         _loadParams: function () {
-            this.getView().getModel().callFunction("/GetPMParams", {
+            this._oModel.callFunction("/GetPMParams", {
                 method: "GET",
                 success: function (oData) {
                     this.getView().getModel("localModel").setProperty("/period", oData.Period || "");
@@ -62,7 +63,7 @@ sap.ui.define([
         _loadSummary: function () {
             var oLM = this.getView().getModel("localModel");
             oLM.setProperty("/busy", true);
-            this.getView().getModel().callFunction("/GetPMSummary", {
+            this._oModel.callFunction("/GetPMSummary", {
                 method: "GET",
                 urlParameters: {
                     SearchTerm: this._sSearchTerm,
@@ -180,7 +181,7 @@ sap.ui.define([
         _doApprove: function (sProjectIds) {
             var oLM = this.getView().getModel("localModel");
             oLM.setProperty("/busy", true);
-            this.getView().getModel().callFunction("/ApproveEntries", {
+            this._oModel.callFunction("/ApproveEntries", {
                 method: "POST",
                 urlParameters: { ProjectIds: sProjectIds },
                 success: function () {
