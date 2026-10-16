@@ -15,10 +15,13 @@ sap.ui.define([
                 accessGranted: false,
                 accessDenied: false,
                 selectedCount: 0,
-                projects: []
+                projects: [],
+                filterCounts: { all: "0", unreleased: "0", released: "0", approved: "0", pending: "0" }
             });
             this.getView().setModel(oLocalModel, "localModel");
             this._sSearchTerm = "";
+            this._sFilterKey = "all";
+            this._aAllProjects = [];
             this._oModel = this.getOwnerComponent().getModel();
             this._checkPMAccess();
         },
@@ -74,8 +77,8 @@ sap.ui.define([
                 },
                 success: function (oData) {
                     var aItems = (oData && oData.results) ? oData.results : [];
-                    oLM.setProperty("/projects", this._buildProjects(aItems));
-                    oLM.setProperty("/selectedCount", 0);
+                    this._aAllProjects = this._buildProjects(aItems);
+                    this._applyFilter();
                     oLM.setProperty("/accessGranted", true);
                     oLM.setProperty("/busy", false);
                 }.bind(this),
@@ -142,6 +145,39 @@ sap.ui.define([
                 delete oPrj._empReleased;
                 return oPrj;
             });
+        },
+
+        // ── Filtering ─────────────────────────────────────────────────────────
+
+        _applyFilter: function () {
+            var oLM = this.getView().getModel("localModel");
+            var aAll = this._aAllProjects;
+
+            aAll.forEach(function (p) { p.isSelected = false; });
+
+            var aFiltered;
+            switch (this._sFilterKey) {
+                case "unreleased": aFiltered = aAll.filter(function (p) { return p.notReleasedCount > 0; }); break;
+                case "released":   aFiltered = aAll.filter(function (p) { return p.notReleasedCount === 0; }); break;
+                case "approved":   aFiltered = aAll.filter(function (p) { return p.isFullyApproved; }); break;
+                case "pending":    aFiltered = aAll.filter(function (p) { return !p.isFullyApproved; }); break;
+                default:           aFiltered = aAll.slice(); break;
+            }
+
+            oLM.setProperty("/projects", aFiltered);
+            oLM.setProperty("/selectedCount", 0);
+            oLM.setProperty("/filterCounts", {
+                all:        String(aAll.length),
+                unreleased: String(aAll.filter(function (p) { return p.notReleasedCount > 0; }).length),
+                released:   String(aAll.filter(function (p) { return p.notReleasedCount === 0; }).length),
+                approved:   String(aAll.filter(function (p) { return p.isFullyApproved; }).length),
+                pending:    String(aAll.filter(function (p) { return !p.isFullyApproved; }).length)
+            });
+        },
+
+        onFilterSelect: function (oEvent) {
+            this._sFilterKey = oEvent.getParameter("key");
+            this._applyFilter();
         },
 
         // ── Events ────────────────────────────────────────────────────────────

@@ -35,6 +35,27 @@
                     visible="{localModel>/accessDenied}"
                     class="sapUiSmallMargin" />
 
+                <IconTabBar
+                    id="filterBar"
+                    visible="{localModel>/accessGranted}"
+                    select="onFilterSelect"
+                    expandable="false"
+                    class="sapUiNoContentPadding">
+                    <items>
+                        <IconTabFilter key="all" text="{i18n>filterAll}" count="{localModel>/filterCounts/all}" />
+                        <IconTabSeparator />
+                        <IconTabFilter key="unreleased" icon="sap-icon://alert" iconColor="Critical"
+                            text="{i18n>filterUnreleased}" count="{localModel>/filterCounts/unreleased}" />
+                        <IconTabFilter key="released" icon="sap-icon://accept" iconColor="Positive"
+                            text="{i18n>filterReleased}" count="{localModel>/filterCounts/released}" />
+                        <IconTabSeparator />
+                        <IconTabFilter key="approved" icon="sap-icon://thumb-up" iconColor="Positive"
+                            text="{i18n>filterApproved}" count="{localModel>/filterCounts/approved}" />
+                        <IconTabFilter key="pending" icon="sap-icon://pending"
+                            text="{i18n>filterPending}" count="{localModel>/filterCounts/pending}" />
+                    </items>
+                </IconTabBar>
+
                 <List
                     id="projectList"
                     visible="{localModel>/accessGranted}"
