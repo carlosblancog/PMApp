@@ -18,7 +18,12 @@
                     <SearchField
                         placeholder="{i18n>searchPlaceholder}"
                         search="onSearch"
-                        width="100%" />
+                        width="20rem" />
+                    <ToolbarSpacer />
+                    <Button
+                        icon="sap-icon://refresh"
+                        tooltip="{i18n>refreshTooltip}"
+                        press="onRefresh" />
                 </Toolbar>
             </subHeader>
 
@@ -100,7 +105,7 @@
                                                             size="1.25rem"
                                                             color="{= ${localModel>isReleased} ? 'Positive' : 'Negative' }"
                                                             class="sapUiTinyMarginEnd" />
-                                                        <Text text="{localModel>employeeName}" />
+                                                        <Title text="{localModel>employeeName}" level="H6" wrapping="false" />
                                                     </HBox>
                                                     <Text text="{localModel>displayName}" />
                                                     <Text text="{localModel>opexCapex}" />

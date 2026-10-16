@@ -151,6 +151,11 @@ sap.ui.define([
             this._loadSummary();
         },
 
+        onRefresh: function () {
+            this._sSearchTerm = "";
+            this._loadSummary();
+        },
+
         onProjectSelect: function () {
             var aProjects = this.getView().getModel("localModel").getProperty("/projects");
             var iCount = aProjects.filter(function (p) { return p.isSelected; }).length;
