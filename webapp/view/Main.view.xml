@@ -8,7 +8,8 @@
     <App>
         <Page
             id="mainPage"
-            title="PM Approvals – {localModel>/period}"
+            title="Project Manager Approvals – {localModel>/period}"
+            titleAlignment="Center"
             busy="{localModel>/busy}"
             busyIndicatorDelay="0"
             showNavButton="false">
@@ -131,8 +132,18 @@
                                                             src="sap-icon://employee"
                                                             size="1.25rem"
                                                             color="{= ${localModel>isReleased} ? 'Positive' : 'Negative' }"
-                                                            class="sapUiTinyMarginEnd" />
-                                                        <Title text="{localModel>employeeName}" level="H6" wrapping="false" />
+                                                            class="sapUiTinyMarginEnd"
+                                                            visible="{= !${localModel>isTotal}}" />
+                                                        <Title text="{localModel>employeeName}" level="H6" wrapping="false"
+                                                            visible="{= !${localModel>isTotal}}" />
+                                                        <core:Icon
+                                                            src="sap-icon://sum"
+                                                            size="1rem"
+                                                            color="Neutral"
+                                                            class="sapUiTinyMarginEnd"
+                                                            visible="{= ${localModel>isTotal}}" />
+                                                        <Text text="{localModel>employeeName}"
+                                                            visible="{= ${localModel>isTotal}}" />
                                                     </HBox>
                                                     <Text text="{localModel>displayName}" />
                                                     <Text text="{localModel>opexCapex}" />
@@ -141,14 +152,20 @@
                                                         unit="h"
                                                         state="Information"
                                                         emphasized="true" />
-                                                    <ObjectStatus
-                                                        icon="{= ${localModel>isReleased} ? 'sap-icon://accept' : 'sap-icon://decline' }"
-                                                        text="{= ${localModel>isReleased} ? 'Yes' : 'No' }"
-                                                        state="{= ${localModel>isReleased} ? 'Success' : 'Error' }" />
-                                                    <ObjectStatus
-                                                        icon="{= ${localModel>isApproved} ? 'sap-icon://accept' : 'sap-icon://pending' }"
-                                                        text="{= ${localModel>isApproved} ? 'Yes' : 'No' }"
-                                                        state="{= ${localModel>isApproved} ? 'Success' : 'None' }" />
+                                                    <HBox>
+                                                        <ObjectStatus
+                                                            icon="{= ${localModel>isReleased} ? 'sap-icon://accept' : 'sap-icon://decline' }"
+                                                            text="{= ${localModel>isReleased} ? 'Yes' : 'No' }"
+                                                            state="{= ${localModel>isReleased} ? 'Success' : 'Error' }"
+                                                            visible="{= !${localModel>isTotal}}" />
+                                                    </HBox>
+                                                    <HBox>
+                                                        <ObjectStatus
+                                                            icon="{= ${localModel>isApproved} ? 'sap-icon://accept' : 'sap-icon://pending' }"
+                                                            text="{= ${localModel>isApproved} ? 'Yes' : 'No' }"
+                                                            state="{= ${localModel>isApproved} ? 'Success' : 'None' }"
+                                                            visible="{= !${localModel>isTotal}}" />
+                                                    </HBox>
                                                 </cells>
                                             </ColumnListItem>
                                         </items>

@@ -125,6 +125,7 @@ sap.ui.define([
                 }
 
                 oPrj.rows.push({
+                    isTotal:      false,
                     employeeId:   oItem.EmployeeId,
                     employeeName: oItem.EmployeeName || oItem.EmployeeId,
                     displayName:  oItem.DisplayName  || oItem.SubtaskId || "",
@@ -143,6 +144,32 @@ sap.ui.define([
                 oPrj.notReleasedCount = iNotReleased;
                 oPrj.totalHours = Math.round(oPrj.totalHours * 100) / 100;
                 delete oPrj._empReleased;
+
+                var mEmp = {}, aEmpOrder = [];
+                oPrj.rows.forEach(function (r) {
+                    if (!mEmp[r.employeeId]) {
+                        mEmp[r.employeeId] = { name: r.employeeName, rows: [] };
+                        aEmpOrder.push(r.employeeId);
+                    }
+                    mEmp[r.employeeId].rows.push(r);
+                });
+                var aFlat = [];
+                aEmpOrder.forEach(function (sId) {
+                    var oEmp = mEmp[sId];
+                    oEmp.rows.forEach(function (r) { aFlat.push(r); });
+                    aFlat.push({
+                        isTotal:      true,
+                        employeeId:   sId,
+                        employeeName: oEmp.name,
+                        displayName:  "",
+                        opexCapex:    "",
+                        totalHours:   Math.round(oEmp.rows.reduce(function (s, r) { return s + r.totalHours; }, 0) * 100) / 100,
+                        isReleased:   false,
+                        isApproved:   false
+                    });
+                });
+                oPrj.rows = aFlat;
+
                 return oPrj;
             });
         },
