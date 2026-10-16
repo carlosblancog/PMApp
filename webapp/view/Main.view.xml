@@ -99,16 +99,16 @@
                                                             src="sap-icon://employee"
                                                             size="1.25rem"
                                                             color="{= ${localModel>isReleased} ? 'Positive' : 'Negative' }"
-                                                            class="sapUiTinyMarginEnd pmkEmployeeIcon" />
-                                                        <Text text="{localModel>employeeName}" class="pmkEmployeeName" />
+                                                            class="sapUiTinyMarginEnd" />
+                                                        <Text text="{localModel>employeeName}" />
                                                     </HBox>
                                                     <Text text="{localModel>displayName}" />
                                                     <Text text="{localModel>opexCapex}" />
                                                     <ObjectNumber
                                                         number="{localModel>totalHours}"
                                                         unit="h"
-                                                        state="None"
-                                                        class="pmkRowHours" />
+                                                        state="Information"
+                                                        emphasized="true" />
                                                     <ObjectStatus
                                                         icon="{= ${localModel>isReleased} ? 'sap-icon://accept' : 'sap-icon://decline' }"
                                                         text="{= ${localModel>isReleased} ? 'Yes' : 'No' }"
