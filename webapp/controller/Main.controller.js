@@ -167,10 +167,10 @@ sap.ui.define([
 
             var sPeriod  = oLM.getProperty("/period");
             var sNames   = aSelected.map(function (p) { return "• " + p.projectName; }).join("\n");
-            var sMsg     = "¿Aprobar " + aSelected.length + " proyecto(s) para el periodo " + sPeriod + "?\n\n" + sNames;
+            var sMsg     = "Approve " + aSelected.length + " project(s) for period " + sPeriod + "?\n\n" + sNames;
 
             MessageBox.confirm(sMsg, {
-                title: "Confirmar aprobación",
+                title: "Confirm approval",
                 onClose: function (sAction) {
                     if (sAction === MessageBox.Action.OK) {
                         var sIds = aSelected.map(function (p) { return p.projectId; }).join(";");
@@ -187,12 +187,12 @@ sap.ui.define([
                 method: "POST",
                 urlParameters: { ProjectIds: sProjectIds },
                 success: function () {
-                    MessageToast.show("Aprobación completada correctamente.");
+                    MessageToast.show("Approval completed successfully.");
                     this._loadSummary();
                 }.bind(this),
                 error: function () {
                     oLM.setProperty("/busy", false);
-                    MessageBox.error("Error al aprobar. Por favor inténtelo de nuevo.");
+                    MessageBox.error("Error approving. Please try again.");
                 }.bind(this)
             });
         }

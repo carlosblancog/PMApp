@@ -58,20 +58,20 @@
                                         <ToolbarSeparator />
                                         <ObjectStatus
                                             icon="sap-icon://alert"
-                                            text="{localModel>notReleasedCount} sin liberar"
+                                            text="{localModel>notReleasedCount} not released"
                                             state="Warning"
                                             class="pmkStatusLarge"
                                             visible="{= ${localModel>notReleasedCount} > 0}" />
                                         <ObjectStatus
                                             icon="sap-icon://accept"
-                                            text="Todos liberados"
+                                            text="All released"
                                             state="Success"
                                             class="pmkStatusLarge"
                                             visible="{= ${localModel>notReleasedCount} === 0}" />
                                         <ToolbarSeparator />
                                         <ObjectStatus
                                             icon="{= ${localModel>isFullyApproved} ? 'sap-icon://accept' : 'sap-icon://pending' }"
-                                            text="{= ${localModel>isFullyApproved} ? 'Aprobado' : 'Pendiente' }"
+                                            text="{= ${localModel>isFullyApproved} ? 'Approved' : 'Pending' }"
                                             state="{= ${localModel>isFullyApproved} ? 'Success' : 'None' }"
                                             class="pmkStatusLarge sapUiSmallMarginBegin" />
                                     </Toolbar>
@@ -110,11 +110,11 @@
                                                         state="None" />
                                                     <ObjectStatus
                                                         icon="{= ${localModel>isReleased} ? 'sap-icon://accept' : 'sap-icon://decline' }"
-                                                        text="{= ${localModel>isReleased} ? 'Sí' : 'No' }"
+                                                        text="{= ${localModel>isReleased} ? 'Yes' : 'No' }"
                                                         state="{= ${localModel>isReleased} ? 'Success' : 'Error' }" />
                                                     <ObjectStatus
                                                         icon="{= ${localModel>isApproved} ? 'sap-icon://accept' : 'sap-icon://pending' }"
-                                                        text="{= ${localModel>isApproved} ? 'Sí' : 'No' }"
+                                                        text="{= ${localModel>isApproved} ? 'Yes' : 'No' }"
                                                         state="{= ${localModel>isApproved} ? 'Success' : 'None' }" />
                                                 </cells>
                                             </ColumnListItem>
@@ -132,7 +132,7 @@
                 <Toolbar visible="{localModel>/accessGranted}">
                     <ToolbarSpacer />
                     <Button
-                        text="Aprobar seleccionados ({localModel>/selectedCount})"
+                        text="Approve selected ({localModel>/selectedCount})"
                         type="Emphasized"
                         enabled="{= ${localModel>/selectedCount} > 0}"
                         press="onApprove" />
