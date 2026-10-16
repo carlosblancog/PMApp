@@ -105,6 +105,7 @@ sap.ui.define([
                         notReleasedCount: 0,
                         isFullyApproved: true,
                         isSelected:      false,
+                        expanded:        true,
                         _empReleased:    {},
                         rows:            []
                     };
@@ -185,6 +186,13 @@ sap.ui.define([
         onSearch: function (oEvent) {
             this._sSearchTerm = oEvent.getParameter("query") || oEvent.getParameter("newValue") || "";
             this._loadSummary();
+        },
+
+        onToggleProject: function (oEvent) {
+            var oCtx = oEvent.getSource().getBindingContext("localModel");
+            var sPath = oCtx.getPath();
+            var oLM = this.getView().getModel("localModel");
+            oLM.setProperty(sPath + "/expanded", !oCtx.getProperty("expanded"));
         },
 
         onRefresh: function () {

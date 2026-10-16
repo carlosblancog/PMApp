@@ -76,6 +76,10 @@
 
                                     <!-- Project header row -->
                                     <Toolbar class="pmkProjectHeader">
+                                        <Button
+                                            icon="{= ${localModel>expanded} ? 'sap-icon://slim-arrow-down' : 'sap-icon://slim-arrow-right' }"
+                                            type="Transparent"
+                                            press="onToggleProject" />
                                         <CheckBox
                                             selected="{localModel>isSelected}"
                                             select="onProjectSelect" />
@@ -111,6 +115,7 @@
 
                                     <!-- Detail rows -->
                                     <Table
+                                        visible="{localModel>expanded}"
                                         items="{localModel>rows}"
                                         mode="None"
                                         showSeparators="Inner"
