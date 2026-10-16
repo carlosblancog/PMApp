@@ -46,6 +46,27 @@
     font-size: 1rem !important;
 }
 
+.pmkEmployeeIcon.sapUiIcon {
+    font-size: 1.25rem !important;
+    color: inherit;
+}
+
+.pmkEmployeeName {
+    font-weight: bold;
+    font-size: 0.9375rem;
+}
+
+.pmkRowHours .sapMObjNumberNumber {
+    font-size: 1.125rem !important;
+    font-weight: bold !important;
+    color: var(--sapInformationColor, #0070f2) !important;
+}
+
+.pmkRowHours .sapMObjNumberUnit {
+    font-size: 0.875rem !important;
+    color: var(--sapInformationColor, #0070f2) !important;
+}
+
 /* Keep list items flush — no extra padding from CustomListItem */
 #projectList .sapMLIB {
     padding: 0;

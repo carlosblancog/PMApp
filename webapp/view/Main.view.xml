@@ -97,17 +97,18 @@
                                                     <HBox alignItems="Center">
                                                         <core:Icon
                                                             src="sap-icon://employee"
-                                                            size="1rem"
+                                                            size="1.25rem"
                                                             color="{= ${localModel>isReleased} ? 'Positive' : 'Negative' }"
-                                                            class="sapUiTinyMarginEnd" />
-                                                        <Text text="{localModel>employeeName}" />
+                                                            class="sapUiTinyMarginEnd pmkEmployeeIcon" />
+                                                        <Text text="{localModel>employeeName}" class="pmkEmployeeName" />
                                                     </HBox>
                                                     <Text text="{localModel>displayName}" />
                                                     <Text text="{localModel>opexCapex}" />
                                                     <ObjectNumber
                                                         number="{localModel>totalHours}"
                                                         unit="h"
-                                                        state="None" />
+                                                        state="None"
+                                                        class="pmkRowHours" />
                                                     <ObjectStatus
                                                         icon="{= ${localModel>isReleased} ? 'sap-icon://accept' : 'sap-icon://decline' }"
                                                         text="{= ${localModel>isReleased} ? 'Yes' : 'No' }"
