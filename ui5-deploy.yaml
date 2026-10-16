@@ -18,14 +18,13 @@ builder:
     - name: deploy-to-abap
       afterTask: generateCachebusterInfo
       configuration:
+        configuration:
         target:
-          url: #<URL del sistema ABAP, ej: https://my-system.example.com>
           destination: DES_BW_ALK
-          scp: true
+          url: http://dkhosdsapbi02.alk-abello.com:8000
+          client: '400'
         app:
-          name: #<BSP application name, ej: ZPMREGISTRATION>
-          package: #<paquete ABAP, ej: ZITS_PM>
-          transport: #<orden de transporte, ej: ALK K900001>
-        credentials:
-          username: env:ABAP_USER
-          password: env:ABAP_PASSWORD
+          name: ZPM_APPROVE
+          description: Project Manager Approvals
+          package: ZBID
+          transport: WBDK925949
