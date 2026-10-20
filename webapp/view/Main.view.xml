@@ -114,8 +114,14 @@
                                     </Toolbar>
 
                                     <!-- Detail rows -->
+                                    <MessageStrip
+                                        text="No hours have been registered for this project in period {localModel>/period}."
+                                        type="Information"
+                                        showCloseButton="false"
+                                        visible="{= ${localModel>expanded} &amp;&amp; ${localModel>isEmpty} }"
+                                        class="sapUiSmallMargin" />
                                     <Table
-                                        visible="{localModel>expanded}"
+                                        visible="{= ${localModel>expanded} &amp;&amp; !${localModel>isEmpty} }"
                                         items="{localModel>rows}"
                                         mode="None"
                                         showSeparators="Inner"

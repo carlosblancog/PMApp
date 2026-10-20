@@ -119,21 +119,22 @@ sap.ui.define([
                 oPrj.totalHours += fHours;
                 if (!bApproved) { oPrj.isFullyApproved = false; }
 
-                if (oPrj._empReleased[oItem.EmployeeId] === undefined) {
-                    oPrj._empReleased[oItem.EmployeeId] = bReleased;
-                } else if (!bReleased) {
-                    oPrj._empReleased[oItem.EmployeeId] = false;
+                if (oItem.EmployeeId) {
+                    if (oPrj._empReleased[oItem.EmployeeId] === undefined) {
+                        oPrj._empReleased[oItem.EmployeeId] = bReleased;
+                    } else if (!bReleased) {
+                        oPrj._empReleased[oItem.EmployeeId] = false;
+                    }
+                    oPrj.rows.push({
+                        employeeId:   oItem.EmployeeId,
+                        employeeName: oItem.EmployeeName || oItem.EmployeeId,
+                        displayName:  oItem.DisplayName  || oItem.SubtaskId || "",
+                        opexCapex:    oItem.OpexCapex    || "",
+                        totalHours:   fHours,
+                        isReleased:   bReleased,
+                        isApproved:   bApproved
+                    });
                 }
-
-                oPrj.rows.push({
-                    employeeId:   oItem.EmployeeId,
-                    employeeName: oItem.EmployeeName || oItem.EmployeeId,
-                    displayName:  oItem.DisplayName  || oItem.SubtaskId || "",
-                    opexCapex:    oItem.OpexCapex    || "",
-                    totalHours:   fHours,
-                    isReleased:   bReleased,
-                    isApproved:   bApproved
-                });
             });
 
             return aOrder.map(function (sKey) {
@@ -142,6 +143,7 @@ sap.ui.define([
                     return !oPrj._empReleased[k];
                 }).length;
                 oPrj.notReleasedCount = iNotReleased;
+                oPrj.isEmpty = oPrj.rows.length === 0;
                 oPrj.totalHours = Math.round(oPrj.totalHours * 100) / 100;
                 delete oPrj._empReleased;
                 return oPrj;
